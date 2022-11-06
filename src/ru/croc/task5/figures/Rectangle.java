@@ -24,10 +24,7 @@ public class Rectangle extends Figure {
 
     @Override
     public boolean contains(int x, int y) {
-        if(this.x1 == x && this.y1 == y) {
-            return true;
-        }
-        else if(this.x2 == x && this.y2 == y) {
+        if((this.x1 <= x && this.x2 >= x) && (this.y1 <= y && this.y2 >= y)) {
             return true;
         }
         else {

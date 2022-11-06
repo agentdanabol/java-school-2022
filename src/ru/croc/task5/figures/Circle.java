@@ -21,7 +21,7 @@ public class Circle extends Figure {
 
     @Override
     public boolean contains(int x, int y) {
-        if(this.x == x && this.y == y) {
+        if ((Math.pow(x - this.x, 2) + Math.pow(y - this.y, 2)) < Math.pow(this.R, 2)) {
             return true;
         }
         return false;

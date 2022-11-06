@@ -27,7 +27,7 @@ public class Task5 {
 
         System.out.println("Поиск первого вхождения '100, 100': ");
         for(int i = 1; i < img1.getAnnotations().length; i++) {
-            System.out.println(img1.findByPoint(100, 100) + "\n");
+            System.out.println(img1.findByPoint(101, 101) + "\n");
         }
 
         System.out.println("Сдвинутые фигуры: ");

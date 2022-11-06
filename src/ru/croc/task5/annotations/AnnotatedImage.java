@@ -40,7 +40,7 @@ public class AnnotatedImage {
     }
 
     public String toString() {
-        return "Путь к картинке: " + imagePath + " Аннотации: " + Arrays.toString(annotations);
+        return "Путь к картинке: " + imagePath + "\nАннотации: " + Arrays.toString(annotations);
     }
 
 

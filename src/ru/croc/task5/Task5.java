@@ -1,11 +1,10 @@
-package ru.croc.Task5;
+package ru.croc.task5;
 
-import ru.croc.Task5.annotations.AnnotatedImage;
-import ru.croc.Task5.annotations.Annotation;
-import ru.croc.Task5.figures.Circle;
-import ru.croc.Task5.figures.Figure;
-import ru.croc.Task5.figures.Movable;
-import ru.croc.Task5.figures.Rectangle;
+import ru.croc.task5.annotations.AnnotatedImage;
+import ru.croc.task5.annotations.Annotation;
+import ru.croc.task5.figures.Circle;
+import ru.croc.task5.figures.Figure;
+import ru.croc.task5.figures.Rectangle;
 
 public class Task5 {
 
@@ -18,11 +17,7 @@ public class Task5 {
 
         AnnotatedImage img1 = new AnnotatedImage("src/somepicture.png", annotation1, annotation2);
 
-        System.out.println("Путь к картинке: " + img1.getImagePath());
-        System.out.println("Аннотации: ");
-        for(int i = 0; i < img1.getAnnotations().length; i++) {
-            System.out.println(img1.getAnnotations()[i]);
-        }
+        System.out.println(img1);
         System.out.println("\n");
 
         System.out.println("Поиск первого вхождения 'Са': ");
@@ -32,9 +27,10 @@ public class Task5 {
 
         System.out.println("Поиск первого вхождения '100, 100': ");
         for(int i = 1; i < img1.getAnnotations().length; i++) {
-            System.out.println(img1.findByPoint(10, 100) + "\n");
+            System.out.println(img1.findByPoint(100, 100) + "\n");
         }
 
+        System.out.println("Сдвинутые фигуры: ");
         circ1.move(32, 12);
         System.out.println(circ1);
 

@@ -1,4 +1,4 @@
-package ru.croc.Task5.figures;
+package ru.croc.task5.figures;
 
 public interface Movable {
     void move(int dx, int dy);

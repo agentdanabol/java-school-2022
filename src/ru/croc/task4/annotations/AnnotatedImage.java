@@ -1,4 +1,6 @@
-package ru.croc.Task4.annotations;
+package ru.croc.task4.annotations;
+
+import java.util.Arrays;
 
 public class AnnotatedImage {
     private final String imagePath;
@@ -15,5 +17,9 @@ public class AnnotatedImage {
 
     public Annotation[] getAnnotations() {
         return this.annotations;
+    }
+
+    public String toString() {
+        return "Путь к картинке: " + imagePath + "\nАннотации: " + Arrays.toString(annotations);
     }
 }

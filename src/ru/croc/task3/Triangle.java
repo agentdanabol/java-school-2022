@@ -1,4 +1,4 @@
-package ru.croc.Task3;
+package ru.croc.task3;
 
 public class Triangle {
     static class Point {

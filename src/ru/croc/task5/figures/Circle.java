@@ -1,4 +1,4 @@
-package ru.croc.Task5.figures;
+package ru.croc.task5.figures;
 
 public class Circle extends Figure {
     private int x;
@@ -14,18 +14,9 @@ public class Circle extends Figure {
         this.R = R;
     }
 
-    public int getX() {
-        return x;
-    }
-    public int getY() {
-        return y;
-    }
-    public int getR() {
-        return R;
-    }
-
     public String toString() {
-        return "(" + x + ", " + y + "), " + R;
+        return "Circle " + "(" + x + ", " + y +
+                ") " + R + ": ";
     }
 
     @Override

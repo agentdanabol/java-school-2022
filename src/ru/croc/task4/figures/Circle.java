@@ -1,4 +1,4 @@
-package ru.croc.Task4.figures;
+package ru.croc.task4.figures;
 
 public class Circle extends Figure {
 
@@ -15,13 +15,8 @@ public class Circle extends Figure {
         this.R = R;
     }
 
-    public int getX() {
-        return x;
-    }
-    public int getY() {
-        return y;
-    }
-    public int getR() {
-        return R;
+    public String toString() {
+        return "Circle " + "(" + x + ", " + y +
+                ") " + R + ": ";
     }
 }

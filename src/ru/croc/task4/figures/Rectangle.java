@@ -1,4 +1,4 @@
-package ru.croc.Task4.figures;
+package ru.croc.task4.figures;
 
 public class Rectangle extends Figure {
 
@@ -17,16 +17,9 @@ public class Rectangle extends Figure {
         this.y2 = y2;
     }
 
-    public int getX1() {
-        return x1;
-    }
-    public int getY1() {
-        return y1;
-    }
-    public int getX2() {
-        return x2;
-    }
-    public int getY2() {
-        return y2;
+    public String toString() {
+        return "Rectangle " + "(" + x1 + ", " +
+                y1 + "), (" + x2 +
+                ", " + y2 + "):";
     }
 }

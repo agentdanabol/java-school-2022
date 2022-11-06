@@ -1,4 +1,4 @@
-package ru.croc.Task4.figures;
+package ru.croc.task4.figures;
 
 public abstract class Figure {
 

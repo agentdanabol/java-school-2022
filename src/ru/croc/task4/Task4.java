@@ -1,10 +1,10 @@
-package ru.croc.Task4;
+package ru.croc.task4;
 
-import ru.croc.Task4.annotations.AnnotatedImage;
-import ru.croc.Task4.annotations.Annotation;
-import ru.croc.Task4.figures.Circle;
-import ru.croc.Task4.figures.Figure;
-import ru.croc.Task4.figures.Rectangle;
+import ru.croc.task4.annotations.AnnotatedImage;
+import ru.croc.task4.annotations.Annotation;
+import ru.croc.task4.figures.Circle;
+import ru.croc.task4.figures.Figure;
+import ru.croc.task4.figures.Rectangle;
 
 public class Task4 {
 
@@ -17,11 +17,7 @@ public class Task4 {
 
         AnnotatedImage img1 = new AnnotatedImage("src/somepicture.png", annotation1, annotation2);
 
-        System.out.println("Путь к картинке: " + img1.getImagePath());
-        System.out.println("Аннотации: \n");
-        for(int i = 0; i < img1.getAnnotations().length; i++) {
-            System.out.println(img1.getAnnotations()[i]);
-        }
+        System.out.println(img1);
     }
 
 }

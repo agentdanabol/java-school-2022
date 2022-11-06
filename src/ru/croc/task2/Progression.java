@@ -1,4 +1,4 @@
-package ru.croc.Task2;
+package ru.croc.task2;
 
 public class Progression {
     public static void main(String[] args) {

@@ -1,0 +1,20 @@
+/*
+ * My first ever program in Java!
+ */
+class Hello { // class body starts here
+
+  /* main method */
+  public static void main(String[] args) {
+          int start = Integer.parseInt(args[0]); // reading from args
+          int difference = Integer.parseInt(args[1]); // reading from args
+          int count = Integer.parseInt(args[2]); // reading from args
+          // counting progression
+          int sum = start;
+          for(int i = 1; i < count; i++) {
+              start = start + difference;
+              sum += start;
+          }
+          System.out.println("Сумма прогрессии: " + sum);
+      }
+} // the end
+// to be continued...

@@ -6,8 +6,7 @@ import ru.croc.task7.chess.KnightChecker;
 public class Task7 {
     public static void main(String[] args) {
         String str = "h8";
-        ChessPosition first = null;
-        first = first.parse(str);
+        ChessPosition first = ChessPosition.parse(str);
         System.out.println(first);
 
         String moves1 = "b1 c3 d1 f2 g4";
@@ -15,7 +14,7 @@ public class Task7 {
         String[] split1 = moves1.split(" ");
         ChessPosition[] positions1 = new ChessPosition[split1.length];
         for(int i = 0; i < split1.length; i ++) {
-            positions1[i] = positions1[i].parse(split1[i]);
+            positions1[i] = ChessPosition.parse(split1[i]);
         }
         KnightChecker.checker(positions1);
 
@@ -25,7 +24,7 @@ public class Task7 {
         String[] split2 = moves2.split(" ");
         ChessPosition[] positions2 = new ChessPosition[split2.length];
         for(int i = 0; i < split2.length; i ++) {
-            positions2[i] = positions2[i].parse(split2[i]);
+            positions2[i] = ChessPosition.parse(split2[i]);
         }
         KnightChecker.checker(positions2);
     }

@@ -1,11 +1,12 @@
 package ru.croc.task6;
 
+import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
 public class Task6 {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         String source = "/*\n" +
                 " * My first ever program in Java!\n" +
                 " */\n" +
@@ -21,66 +22,68 @@ public class Task6 {
         String noComments = removeJavaComments(source);
         System.out.println(noComments);
 
+        String filename = "src/ru/croc/task6/text.txt";
         try {
-            FileReader reader = new FileReader("src/ru/croc/task6/text.txt");
-            System.out.println(removeJavaCommentsFromFile(reader));
-        }
-        catch (IOException e) {
+            System.out.println(removeJavaCommentsFromFile(filename));
+        } catch (IOException e) {
             System.out.println(e.getMessage());
         }
     }
 
-    public static String removeJavaComments(String str) {
-        String[] split = str.split("\n");
+    public static String removeJavaComments(String str) throws IOException {
         StringBuilder processedStr = new StringBuilder();
         ArrayList<String> result = new ArrayList<String>();
-        String temp = "";
+        String[] split = str.split("\n");
         boolean inside = false;
-        String current;
-        for(int j = 0; j < split.length; j++) {
-            current = split[j];
+        String temp = "";
+        int current = 0;
+
+        for(int i = 0; i < split.length; i++) {
             temp = "";
-            for(int i = 0; i < current.length(); i++) {
-                if(inside == true) {
-                    if(current.charAt(i) == '*' && i + 1 < current.length() && current.charAt(i+1) == '/') {
-                        inside = false;
-                        i++;
-                    }
+            if((current = split[i].indexOf("//")) != -1) {
+                temp += split[i].substring(0, current);
+                result.add(temp);
+            }
+            else if((current = split[i].indexOf("/*")) != -1){
+                temp += split[i].substring(0, current);
+                if((current = split[i].indexOf("*/")) != -1) {
+                    temp += split[i].substring(current + 2);
                 }
                 else {
-                    if(current.charAt(i) == '/' && i + 1 < current.length() && current.charAt(i+1) == '/') {
-                        break;
-                    }
-                    if (current.charAt(i) == '/' && i + 1 < current.length() && current.charAt(i+1) == '*') {
-                        inside = true;
-                        i++;
-                        continue;
-                    }
-                    temp += current.charAt(i);
+                    inside = true;
                 }
+                result.add(temp);
             }
-            if(inside == false) {
-                if (temp.length() > 0) {
-                    result.add(temp);
-                }
+            else if((current = split[i].indexOf("*/")) != -1) {
+                temp += split[i].substring(current + 2);
+                inside = false;
+                result.add(temp);
+            }
+            else if(inside) {
+                continue;
+            }
+            else {
+                result.add(split[i]);
             }
         }
-
-        for(String res : result) {
+        for (String res : result) {
             processedStr.append(res);
             processedStr.append("\n");
         }
         return processedStr.toString();
     }
 
-    public static String removeJavaCommentsFromFile(FileReader file) throws IOException {
-        int c;
-        String str = "";
-        while((c = file.read()) != -1) {
-            str += (char) c;
+    public static String removeJavaCommentsFromFile(String filename) throws IOException {
+        BufferedReader bufferedReader = new BufferedReader(new FileReader(filename));
+        StringBuilder stringBuilder = new StringBuilder();
+        String current = bufferedReader.readLine();
+        while (current != null) {
+            stringBuilder.append(current);
+            stringBuilder.append("\n");
+            current = bufferedReader.readLine();
         }
-
-        return removeJavaComments(str);
+        String text = stringBuilder.toString();
+        return removeJavaComments(text);
     }
 
 }

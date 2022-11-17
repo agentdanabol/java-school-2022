@@ -1,6 +1,5 @@
 package ru.croc.task7.chess;
 
-import ru.croc.task7.exception.IllegalMoveException;
 import ru.croc.task7.exception.IllegalPositionException;
 
 public class ChessPosition {

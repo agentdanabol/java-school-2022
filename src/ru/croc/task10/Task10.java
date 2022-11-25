@@ -1,6 +1,9 @@
 package ru.croc.task10;
 
 import ru.croc.task10.auction.AuctionLot;
+import ru.croc.task10.auction.Participant;
+
+import java.util.ArrayList;
 
 public class Task10 {
     public static void main(String[] args) throws InterruptedException {
@@ -8,16 +11,22 @@ public class Task10 {
 
         AuctionLot car = new AuctionLot(10);
 
-        Thread user1 = new Thread(car, "Данил");
-        Thread user2 = new Thread(car, "Антон");
-        Thread user3 = new Thread(car, "Иван");
+        ArrayList<Participant> participants = new ArrayList<>();
+        participants.add(new Participant(car, "Данил"));
+        participants.add(new Participant(car, "Антон"));
+        participants.add(new Participant(car, "Иван"));
+        participants.add(new Participant(car, "Дмитрий"));
+        participants.add(new Participant(car, "Василий"));
 
-        user1.start();
-        user2.start();
-        user3.start();
-        user1.join();
-        user2.join();
-        user3.join();
+
+        Thread threads[] = new Thread[5];
+        for (int i = 0; i < 5; i++){
+            threads[i] = new Thread(participants.get(i));
+            threads[i].start();
+        }
+        for (int i = 0; i < 5; i++){
+            threads[i].join();
+        }
 
         System.out.println("Победитель аукциона: " + car.getWinner());
 

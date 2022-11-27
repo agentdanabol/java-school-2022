@@ -4,8 +4,6 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class Participant implements Runnable {
 
-    private static final Object lock = new Object();
-
     private final AuctionLot lot;
     private final String name;
 
@@ -29,17 +27,15 @@ public class Participant implements Runnable {
     @Override
     public void run() {
         while (!lot.isFinished()) {
-            synchronized (lock) {
-                int r = ThreadLocalRandom.current().nextInt(0, 4);
-                switch (r) {
-                    case 0 -> bet1();
-                    case 1 -> bet2();
-                    case 2 -> bet3();
-                    default -> {
-                    }
+            int r = ThreadLocalRandom.current().nextInt(0, 4);
+            switch (r) {
+                case 0 -> bet1();
+                case 1 -> bet2();
+                case 2 -> bet3();
+                default -> {
                 }
-                lot.state();
             }
+            lot.state();
         }
     }
 }

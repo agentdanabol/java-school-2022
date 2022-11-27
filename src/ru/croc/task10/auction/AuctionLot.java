@@ -8,6 +8,8 @@ public class AuctionLot {
     private String owner;
     LocalDateTime time;
 
+    private static final Object lock = new Object();
+
     public AuctionLot(int startCost) {
         this.cost = startCost;
         owner = "Пока никто не сделал ставку";
@@ -19,15 +21,17 @@ public class AuctionLot {
     }
 
     public void bet(int cost, String name) {
-        if(time.isBefore(LocalDateTime.now())) {
-            System.out.println("Время вышло!");
-        }
-        else if(cost > this.cost){
-            this.cost = cost;
-            this.owner = name;
-        }
-        else {
-            System.out.println("Ставка должна быть больше!");
+        synchronized (lock) {
+            if(time.isBefore(LocalDateTime.now())) {
+                System.out.println("Время вышло!");
+            }
+            else if(cost > this.cost){
+                this.cost = cost;
+                this.owner = name;
+            }
+            else {
+                System.out.println("Ставка должна быть больше!");
+            }
         }
     }
 

@@ -3,7 +3,6 @@ package ru.croc.task12.service;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
 public class Service implements BlackListFilter{
 
@@ -17,12 +16,12 @@ public class Service implements BlackListFilter{
 
     public void addComment(String comment) {
         allComments.add(comment);
-        filterComments(allComments, prohibitedWords);
+        //filterComments(allComments, prohibitedWords);
     }
 
     public void addProhibitedWord(String... words) {
         prohibitedWords.addAll(Arrays.asList(words));
-        filterComments(allComments, prohibitedWords);
+        //filterComments(allComments, prohibitedWords);
     }
 
     public void printComments() {
@@ -31,6 +30,9 @@ public class Service implements BlackListFilter{
         }
     }
 
+    public void runFilter() {
+        filterComments(allComments, prohibitedWords);
+    }
 
     @Override
     public void filterComments(List<String> comments, Set<String> blackList) {

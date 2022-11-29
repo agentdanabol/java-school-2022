@@ -13,6 +13,7 @@ public class Task12 {
         app.addComment("Колени ещё на превью вышли из чата. Ехал в метро пока смотрел");
         app.addComment("Вроде Исландия была совсем недавно, а столько времени пролетело...");
         app.addProhibitedWord("видео", "бро", "совсем");
+        app.runFilter();
         app.printComments();
 
     }

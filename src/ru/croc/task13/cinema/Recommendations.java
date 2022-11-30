@@ -10,34 +10,53 @@ public class Recommendations {
         String line =  scanner.nextLine();
         userHistory = new ArrayList<>();
         String[] views = line.split(",");
+        if(views.length == 0) {
+            throw new IllegalArgumentException("Views amount can't be lower than 1");
+        }
         for(String view : views) {
-            userHistory.add((int) view.charAt(0));
+            int id = Integer.parseInt(view);
+            if(id < 1) {
+                throw new IllegalArgumentException("View id can't be less than 1");
+            }
+            userHistory.add(id);
+        }
+    }
+
+    private int getView(int id) {
+        if(id >= userHistory.size()) {
+            return 0;
+        }
+        else {
+            return userHistory.get(id);
         }
     }
 
     public String getRecommendation(Cinema cinema) {
         String result;
 
-        List<Person> allUsers = cinema.getUsers();
-        ArrayList<Person> likelyUsers = getLikely(allUsers);
+        List<User> allUsers = cinema.getUsers();
+        ArrayList<User> likelyUsers = getLikely(allUsers);
         HashSet<Integer> unwatched = getUnwatched(likelyUsers);
         Integer best = getBest(unwatched, allUsers);
 
         Map<Integer, String> movies = cinema.getMovies();
         result = movies.get(best);
+        if(result == null) {
+            result = "Для вас нет подходящего фильма :(";
+        }
 
         return result;
     }
 
-    private ArrayList<Person> getLikely(List<Person> allUsers) {
-        ArrayList<Person> likelyUsers = new ArrayList<>();
+    private ArrayList<User> getLikely(List<User> allUsers) {
+        ArrayList<User> likelyUsers = new ArrayList<>();
 
-        for (Person user : allUsers) {
-            HashSet<Integer> currentHistory = new HashSet<>(user.getHistory());
+        for (User user : allUsers) {
+            List<Integer> currentHistory = user.getHistory();
             int count = 0;
 
-            for (int j = 0; j < currentHistory.size()-1; j++) {
-                if (currentHistory.contains(userHistory.get(j))) {
+            for (int j = 0; j < currentHistory.size(); j++) {
+                if (currentHistory.contains(getView(j))) {
                     count++;
                 }
             }
@@ -50,10 +69,10 @@ public class Recommendations {
         return likelyUsers;
     }
 
-    private HashSet<Integer> getUnwatched(ArrayList<Person> likelyUsers) {
+    private HashSet<Integer> getUnwatched(ArrayList<User> likelyUsers) {
         HashSet<Integer> unwatched = new HashSet<>();
 
-        for(Person user : likelyUsers) {
+        for(User user : likelyUsers) {
             List<Integer> currentHistory = user.getHistory();
 
             for (Integer movie : currentHistory) {
@@ -67,7 +86,7 @@ public class Recommendations {
         return unwatched;
     }
 
-    private Integer getBest(HashSet<Integer> unwatchedSet, List<Person> allUsers) {
+    private Integer getBest(HashSet<Integer> unwatchedSet, List<User> allUsers) {
         Integer result;
         List<Integer> unwatchedList = new ArrayList<>(unwatchedSet);
         Map<Integer, Integer> targetMap = new HashMap<>();
@@ -75,7 +94,7 @@ public class Recommendations {
         int maxCount = 0;
         for (Integer unwatched : unwatchedList) {
             int count = 0;
-            for (Person user : allUsers) {
+            for (User user : allUsers) {
                 count += Collections.frequency(List.of(user.getHistory()), unwatched);
             }
             targetMap.put(count, unwatched);

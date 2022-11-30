@@ -11,7 +11,7 @@ import java.util.Map;
 public class Cinema {
 
     private Map<Integer, String> movies;
-    private List<Person> users;
+    private List<User> users;
 
     public Cinema(FileReader movies, FileReader history) {
         try {
@@ -19,7 +19,8 @@ public class Cinema {
             BufferedReader reader1 = new BufferedReader(movies);
             String line = reader1.readLine();
             while (line != null) {
-                this.movies.put((int) line.charAt(0), line.substring(2));
+                String[] parts = line.split(",");
+                this.movies.put(Integer.parseInt(parts[0]), parts[1]);
                 line = reader1.readLine();
             }
 
@@ -27,7 +28,7 @@ public class Cinema {
             BufferedReader reader2 = new BufferedReader(history);
             line = reader2.readLine();
             while (line != null) {
-                this.users.add(new Person(line));
+                this.users.add(new User(line));
                 line = reader2.readLine();
             }
 
@@ -43,7 +44,7 @@ public class Cinema {
         return movies;
     }
 
-    public List<Person> getUsers() {
+    public List<User> getUsers() {
         return users;
     }
 

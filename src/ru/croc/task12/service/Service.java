@@ -6,34 +6,6 @@ import java.util.stream.IntStream;
 
 public class Service implements BlackListFilter{
 
-    ArrayList<String> allComments;
-    Set<String> prohibitedWords;
-
-    public Service() {
-        this.allComments = new ArrayList<>();
-        this.prohibitedWords = new TreeSet<>();
-    }
-
-    public void addComment(String comment) {
-        allComments.add(comment);
-        //filterComments(allComments, prohibitedWords);
-    }
-
-    public void addProhibitedWord(String... words) {
-        prohibitedWords.addAll(Arrays.asList(words));
-        //filterComments(allComments, prohibitedWords);
-    }
-
-    public void printComments() {
-        for (String comment : allComments) {
-            System.out.println(comment);
-        }
-    }
-
-    public void runFilter() {
-        filterComments(allComments, prohibitedWords);
-    }
-
     @Override
     public void filterComments(List<String> comments, Set<String> blackList) {
         if(blackList.isEmpty()){
@@ -50,7 +22,7 @@ public class Service implements BlackListFilter{
             }
             editedComments.add(comment);
         }
-        allComments.clear();
-        allComments.addAll(editedComments);
+        comments.clear();
+        comments.addAll(editedComments);
     }
 }

@@ -1,14 +1,17 @@
-package ru.croc.task12;
+package ru.croc.task14;
 
-import ru.croc.task12.service.Service;
+import ru.croc.task14.service.Service;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.function.Predicate;
 
-public class Task12 {
+public class Task14 {
+
     public static void main(String[] args) {
+
 
         List<String> comments = new ArrayList<>();
         comments.add("Отличный канал!! Андрей и всей команде кто работает на выпусками!");
@@ -17,10 +20,7 @@ public class Task12 {
         comments.add("Колени ещё на превью вышли из чата. Ехал в метро пока смотрел");
         comments.add("Вроде Исландия была совсем недавно, а столько времени пролетело...");
 
-        Set<String> prohibitedWords = new HashSet<>();
-        prohibitedWords.add("видео");
-        prohibitedWords.add("бро");
-        prohibitedWords.add("совсем");
+        Predicate<String> prohibitedWords = word -> word.contains("видео") || word.contains("бро");
 
         System.out.println("Комментарии перед фильтрацией:\n");
         for(String comment : comments) {
@@ -29,12 +29,14 @@ public class Task12 {
         System.out.println("\n");
 
         Service app = new Service();
-        app.filterComments(comments, prohibitedWords);
+        List<String> resultComments = (List<String>) app.filterComments(comments, prohibitedWords);
 
         System.out.println("Комментарии после фильтрации:\n");
-        for(String comment : comments) {
+        for(String comment : resultComments) {
             System.out.println(comment);
         }
 
+
     }
+
 }

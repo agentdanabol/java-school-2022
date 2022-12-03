@@ -3,9 +3,7 @@ package ru.croc.task14;
 import ru.croc.task14.service.Service;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.function.Predicate;
 
 public class Task14 {

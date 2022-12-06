@@ -4,25 +4,7 @@ import java.util.*;
 
 public class Recommendations {
 
-    private final List<Integer> userHistory;
-
-    public Recommendations(Scanner scanner) {
-        String line =  scanner.nextLine();
-        userHistory = new ArrayList<>();
-        String[] views = line.split(",");
-        if(views.length == 0) {
-            throw new IllegalArgumentException("Views amount can't be lower than 1");
-        }
-        for(String view : views) {
-            int id = Integer.parseInt(view);
-            if(id < 1) {
-                throw new IllegalArgumentException("View id can't be less than 1");
-            }
-            userHistory.add(id);
-        }
-    }
-
-    private int getView(int id) {
+    private int getView(int id, List<Integer> userHistory) {
         if(id >= userHistory.size()) {
             return 0;
         }
@@ -31,13 +13,13 @@ public class Recommendations {
         }
     }
 
-    public String getRecommendation(Cinema cinema) {
+    public String getRecommendation(Cinema cinema, List<Integer> userHistory) {
         String result;
 
         List<User> allUsers = cinema.getUsers();
-        ArrayList<User> likelyUsers = getLikely(allUsers);
-        HashSet<Integer> unwatched = getUnwatched(likelyUsers);
-        Integer best = getBest(unwatched, allUsers);
+        ArrayList<User> likelyUsers = getLikely(allUsers, userHistory);
+        HashSet<Integer> unwatched = getUnwatched(likelyUsers, userHistory);
+        Integer best = getBest(unwatched, likelyUsers);
 
         Map<Integer, String> movies = cinema.getMovies();
         result = movies.get(best);
@@ -48,7 +30,7 @@ public class Recommendations {
         return result;
     }
 
-    private ArrayList<User> getLikely(List<User> allUsers) {
+    private ArrayList<User> getLikely(List<User> allUsers, List<Integer> userHistory) {
         ArrayList<User> likelyUsers = new ArrayList<>();
 
         for (User user : allUsers) {
@@ -56,7 +38,7 @@ public class Recommendations {
             int count = 0;
 
             for (int j = 0; j < currentHistory.size(); j++) {
-                if (currentHistory.contains(getView(j))) {
+                if (currentHistory.contains(getView(j, userHistory))) {
                     count++;
                 }
             }
@@ -69,7 +51,7 @@ public class Recommendations {
         return likelyUsers;
     }
 
-    private HashSet<Integer> getUnwatched(ArrayList<User> likelyUsers) {
+    private HashSet<Integer> getUnwatched(ArrayList<User> likelyUsers, List<Integer> userHistory) {
         HashSet<Integer> unwatched = new HashSet<>();
 
         for(User user : likelyUsers) {

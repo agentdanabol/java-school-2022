@@ -1,8 +1,8 @@
-U-SnezhanaDenisovna-79995553535,47.9386,32.3141,Comfort,Baby Chair
+U-SnezhanaDenisovna-79995553535,47.9386,32.3141,Comfort,BabyChair
 U-MagomedovIldar-79995553435,54.1265,89.2465,Economy,Water
 U-IvanovSergey-79995553448,61.523,68.25,Economy,Music
-U-KhalygverdievAli-79995553127,31.643,89.4,Business,Music,Baby Chair
-U-OlgaRaikina-79995553565,42.9386,39.3141,Economy,Baby Chair, Water
+U-KhalygverdievAli-79995553127,31.643,89.4,Business,Music,BabyChair
+U-OlgaRaikina-79995553565,42.9386,39.3141,Economy,BabyChair,Water
 U-VagapovIlya-79995553245,59.1265,72.2465,Economy,Water,Snacks
 U-IbatulovTimur-799955519835,65.756,63.1654,Comfort,Music,Water
 U-DezhikRia-799955512465,31.643,89.4,Business,Music,Water

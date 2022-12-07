@@ -15,13 +15,16 @@ public class Task16 {
 
         try {
             Coordinates clientCord = new Coordinates(Double.parseDouble(args[0]), Double.parseDouble(args[1]));
-            String requiredClass = args[3];
+            String requiredClass = args[2];
             List<String> wishList = new ArrayList<>(Arrays.asList(args).subList(3, args.length));
 
             final FileReader filePath = new FileReader("src/ru/croc/task16/taxi/drivers_base.txt");
             TaxiService easyGo = new TaxiService(filePath);
 
             Driver bestDriver = new Driver(easyGo.getBestDriver(clientCord, requiredClass, wishList));
+            if(bestDriver.hasRequiredCar(requiredClass, wishList)) {
+                throw new Exception("Can't find driver for your requirements! Sorry!");
+            }
             System.out.println("Самый подходящий водитель:\n" + bestDriver.getDriverId());
 
         } catch (Exception e) {

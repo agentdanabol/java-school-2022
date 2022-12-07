@@ -5,10 +5,10 @@ import java.util.List;
 
 public class Driver {
 
-    private String driverId;
-    private Coordinates cords;
-    private String carClass;
-    private List<String> specialFeatures;
+    private final String driverId;
+    private final Coordinates cords;
+    private final String carClass;
+    private final List<String> specialFeatures;
 
     public Driver(String driverId, Coordinates cords, String carClass, List<String> specialFeatures) {
         this.driverId = driverId;

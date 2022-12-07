@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 public class TaxiService {
@@ -20,12 +19,12 @@ public class TaxiService {
             this.driverList = new ArrayList<>();
             BufferedReader reader = new BufferedReader(driverList);
             String line = reader.readLine();
-            String[] split = line.split(",");
-            List<String> specialWishes = new ArrayList<>();
-            for(int i = 4; i < split.length; i++) {
-                specialWishes.add(split[i]);
-            }
             while (line != null) {
+                String[] split = line.split(",");
+                List<String> specialWishes = new ArrayList<>();
+                for(int i = 4; i < split.length; i++) {
+                    specialWishes.add(split[i]);
+                }
                 this.driverList.add(new Driver(split[0],
                         new Coordinates(Double.parseDouble(split[1]), Double.parseDouble(split[2])),
                         split[3], specialWishes));
@@ -40,7 +39,7 @@ public class TaxiService {
 
     public Driver getBestDriver(Coordinates clientCords, String requiredClass, List<String> wishList) throws Exception {
 
-        Comparator<Driver> driverComparator = (driver1, driver2) -> {
+        driverList.sort((driver1, driver2) -> {
             if(driver1.hasRequiredCar(requiredClass, wishList) && driver2.hasRequiredCar(requiredClass, wishList)) {
                 return Double.compare(driver1.getCords().getDistance(clientCords), driver2.getCords().getDistance(clientCords));
             }
@@ -53,12 +52,8 @@ public class TaxiService {
             else {
                 return 0;
             }
-        };
+        });
 
-        driverList.sort(driverComparator);
-        if(!driverList.get(0).hasRequiredCar(requiredClass, wishList)) {
-            throw new Exception("Can't find driver for your requirements! Sorry!");
-        }
         return driverList.get(0);
 
     }

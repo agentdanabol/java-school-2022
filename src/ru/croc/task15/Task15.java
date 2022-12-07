@@ -19,17 +19,11 @@ public class Task15 {
         }
         values.sort(Integer::compareTo);
 
-        for(int i = 0; i < values.size(); i++) {
-            if(i == 0) {
-                ageGroups.add(new AgeGroup(0, values.get(i)));
-            }
-            else if(i == values.size()-1) {
-                ageGroups.add(new AgeGroup(values.get(i), 123));
-            }
-            else {
-                ageGroups.add(new AgeGroup(values.get(i), values.get(i+1)));
-            }
+        ageGroups.add(new AgeGroup(0, values.get(0)));
+        for(int i = 0; i < values.size()-1; i++) {
+            ageGroups.add(new AgeGroup(values.get(i), values.get(i+1)));
         }
+        ageGroups.add(new AgeGroup(values.get(values.size()-1), 123));
 
         Scanner scanner = new Scanner(System.in);
         List<Person> peopleList = new ArrayList<>();

@@ -22,9 +22,6 @@ public class Task16 {
             TaxiService easyGo = new TaxiService(filePath);
 
             Driver bestDriver = new Driver(easyGo.getBestDriver(clientCord, requiredClass, wishList));
-            if(bestDriver.hasRequiredCar(requiredClass, wishList)) {
-                throw new Exception("Can't find driver for your requirements! Sorry!");
-            }
             System.out.println("Самый подходящий водитель:\n" + bestDriver.getDriverId());
 
         } catch (Exception e) {

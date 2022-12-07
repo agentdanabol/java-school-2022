@@ -34,7 +34,7 @@ public class Recommendations {
         ArrayList<User> likelyUsers = new ArrayList<>();
 
         for (User user : allUsers) {
-            List<Integer> currentHistory = user.getHistory();
+            Set<Integer> currentHistory = new HashSet<>(user.getHistory());
             int count = 0;
 
             for (int j = 0; j < currentHistory.size(); j++) {
@@ -77,10 +77,12 @@ public class Recommendations {
         for (Integer unwatched : unwatchedList) {
             int count = 0;
             for (User user : allUsers) {
-                count += Collections.frequency(List.of(user.getHistory()), unwatched);
+                count += Collections.frequency(user.getHistory(), unwatched);
             }
-            targetMap.put(count, unwatched);
-            if (count < maxCount) {
+            if(!targetMap.containsKey(count)){
+                targetMap.put(count, unwatched);
+            }
+            if (count > maxCount) {
                 maxCount = count;
             }
         }

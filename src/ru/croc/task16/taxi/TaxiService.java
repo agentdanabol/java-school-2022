@@ -37,7 +37,7 @@ public class TaxiService {
 
     }
 
-    public Driver getBestDriver(Coordinates clientCords, String requiredClass, List<String> wishList) throws Exception {
+    public Driver getBestDriver(Coordinates clientCords, String requiredClass, List<String> wishList) {
 
         driverList.sort((driver1, driver2) -> {
             if(driver1.hasRequiredCar(requiredClass, wishList) && driver2.hasRequiredCar(requiredClass, wishList)) {

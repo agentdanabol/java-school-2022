@@ -7,8 +7,8 @@ import java.util.Map;
 
 public class Cinema {
 
-    private Map<Integer, String> movies;
-    private List<User> users;
+    private final Map<Integer, String> movies;
+    private final List<User> users;
 
     public Cinema(Map<Integer, String> movies, List<User> users) {
         this.movies = movies;

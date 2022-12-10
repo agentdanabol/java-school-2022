@@ -33,14 +33,13 @@ public class Task15 {
             line = scanner.nextLine();
         }
 
-        Survey survey = new Survey();
-        Map<AgeGroup, List<Person>> result = survey.sortPeople(peopleList, ageGroups);
+        Survey survey = new Survey(ageGroups);
+        Map<AgeGroup, List<Person>> result = survey.sortPeople(peopleList);
 
-        for(Map.Entry<AgeGroup, List<Person>> entry : result.entrySet()) {
-            System.out.print("\n" + entry.getKey() + ": ");
-            for(Person person : entry.getValue()) {
-                System.out.print(person);
-            }
+        List<String> categories = new ArrayList<>(survey.convertToList(result));
+
+        for(int i = categories.size() - 1; i >= 0; i--) {
+            System.out.println(categories.get(i));
         }
 
     }
@@ -56,5 +55,6 @@ public class Task15 {
 Кошельков Захар Брониславович,105
 Иванов Варлам Якунович,12
 Соколов Андрей Сергеевич,8
+Павлов Евгений Андреевич,34
 END
  */

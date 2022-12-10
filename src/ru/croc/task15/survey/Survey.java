@@ -4,7 +4,13 @@ import java.util.*;
 
 public class Survey implements Comparator<Person> {
 
-    public Map<AgeGroup, List<Person>> sortPeople(List<Person> people, List<AgeGroup> ageGroups) {
+    private final List<AgeGroup> ageGroups;
+
+    public Survey(List<AgeGroup> ageGroups) {
+        this.ageGroups = new ArrayList<>(ageGroups);
+    }
+
+    public Map<AgeGroup, List<Person>> sortPeople(List<Person> people) {
 
         Map<AgeGroup, List<Person>> filteredGroups = new TreeMap<>(Comparator.comparingInt(AgeGroup::getMinAgeBound));
 
@@ -24,6 +30,21 @@ public class Survey implements Comparator<Person> {
         return filteredGroups;
     }
 
+    public List<String> convertToList(Map<AgeGroup,List<Person>> result) {
+
+        List<String> categories = new ArrayList<>();
+        for(Map.Entry<AgeGroup, List<Person>> entry : result.entrySet()) {
+            String age = "" + entry.getKey() + ": ";
+            String people = "";
+            for(Person person : entry.getValue()) {
+                people += person;
+            }
+            categories.add(age + people);
+        }
+
+        return categories;
+    }
+
     @Override
     public int compare(Person person1, Person person2) {
         if (person1.getAge() == person2.getAge()) {
@@ -32,4 +53,7 @@ public class Survey implements Comparator<Person> {
         return person2.getAge() - person1.getAge();
     }
 
+    public List<AgeGroup> getAgeGroups() {
+        return new ArrayList<>(ageGroups);
+    }
 }

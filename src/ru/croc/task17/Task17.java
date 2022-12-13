@@ -12,7 +12,7 @@ public class Task17 {
 
     public static void main(String[] args) {
 
-        try (Connection connection = DriverManager.getConnection("jdbc:h2:~/test", "sa", "")) {
+        try (Connection connection = DriverManager.getConnection("jdbc:h2:mem:~/test", "sa", "")) {
 
             String path = args[0];
             FileReader file = new FileReader(path);

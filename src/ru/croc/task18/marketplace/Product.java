@@ -3,8 +3,8 @@ package ru.croc.task18.marketplace;
 public class Product {
 
     private final String vendorCode;
-    private String name;
-    private int price;
+    private final String name;
+    private final int price;
 
     public Product(String vendorCode, String name, int price) {
         this.vendorCode = vendorCode;
@@ -24,11 +24,4 @@ public class Product {
         return price;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setPrice(int price) {
-        this.price = price;
-    }
 }

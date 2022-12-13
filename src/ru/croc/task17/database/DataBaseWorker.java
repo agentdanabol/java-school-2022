@@ -10,7 +10,7 @@ public class DataBaseWorker {
     public DataBaseWorker(Connection connection) {
         try {
             statement = connection.createStatement();
-            statement.execute("create table `user`(id int primary key auto_increment, login varchar unique)");
+            statement.execute("create table `user`(id int primary key auto_increment, login varchar)");
             statement.execute("create table `product`(id int primary key auto_increment," +
                     " vendorCode varchar, name varchar, price integer)");
             statement.execute("create table `order`(id int, user_id int," +

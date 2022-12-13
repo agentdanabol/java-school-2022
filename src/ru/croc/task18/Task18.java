@@ -1,18 +1,19 @@
-package ru.croc.task17;
+package ru.croc.task18;
 
-import org.h2.tools.Server;
-import ru.croc.task17.database.DataBaseWorker;
-import ru.croc.task17.database.FileParser;
+import ru.croc.task18.database.DataBaseWorker;
+import ru.croc.task18.database.FileParser;
 
 import java.io.FileReader;
 import java.io.IOException;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
-public class Task17 {
+public class Task18 {
 
     public static void main(String[] args) {
 
-        try (Connection connection = DriverManager.getConnection("jdbc:h2:~/test", "sa", "")) {
+        try (Connection connection = DriverManager.getConnection("jdbc:h2:~/marketplace", "sa", "")) {
 
             String path = args[0];
             FileReader file = new FileReader(path);
@@ -31,4 +32,3 @@ public class Task17 {
     }
 
 }
-

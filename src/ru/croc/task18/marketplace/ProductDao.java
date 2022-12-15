@@ -11,7 +11,7 @@ public class ProductDao {
 
     public Product findProduct(String productCode){
         try(Connection connection = DriverManager.getConnection("jdbc:h2:mem:~/test", "sa", "")) {
-            PreparedStatement getProduct = connection.prepareStatement("select * from `product` where vendorCode =?");
+            PreparedStatement getProduct = connection.prepareStatement("select * from products where vendorCode =?");
             getProduct.setString(1, productCode);
             ResultSet resultSet = getProduct.executeQuery();
             if(resultSet.next()) {
@@ -37,7 +37,7 @@ public class ProductDao {
            }
            String productRow = " values ('" + vendorCode + "', '" + name + "', " + price + ")";
            Statement productStatement = connection.createStatement();
-           productStatement.execute("insert into `product` (vendorCode, name, price)" + productRow);
+           productStatement.execute("insert into products (vendorCode, name, price)" + productRow);
 
            return findProduct(vendorCode);
        }
@@ -52,14 +52,14 @@ public class ProductDao {
                 return null;
             }
 
-            PreparedStatement productStatement = connection.prepareStatement("select * from `product` where vendorCode = ?");
+            PreparedStatement productStatement = connection.prepareStatement("select * from products where vendorCode = ?");
             productStatement.setString(1, product.getVendorCode());
             ResultSet resultSet = productStatement.executeQuery();
             resultSet.next();
             int productId = resultSet.getInt("id");
 
             Statement statement = connection.createStatement();
-            statement.execute("update product set vendorCode = '" + product.getVendorCode() + "',name = '" +
+            statement.execute("update products set vendorCode = '" + product.getVendorCode() + "',name = '" +
                     product.getName() + "', price = " + product.getPrice() + " where id =" + productId);
             return findProduct(product.getVendorCode());
         }
@@ -74,17 +74,17 @@ public class ProductDao {
                 return;
             }
 
-            PreparedStatement productStatement = connection.prepareStatement("select * from `product` where vendorCode =?");
+            PreparedStatement productStatement = connection.prepareStatement("select * from products where vendorCode =?");
             productStatement.setString(1, productCode);
             ResultSet resultSet = productStatement.executeQuery();
             resultSet.next();
             int productId = resultSet.getInt(1);
 
-            productStatement = connection.prepareStatement("delete from `order` where product_id=?");
+            productStatement = connection.prepareStatement("delete from orders where product_id=?");
             productStatement.setInt(1, productId);
             productStatement.execute();
 
-            productStatement = connection.prepareStatement("delete from `product` where vendorCode=?");
+            productStatement = connection.prepareStatement("delete from products where vendorCode=?");
             productStatement.setString(1, productCode);
             productStatement.execute();
         }
@@ -96,13 +96,13 @@ public class ProductDao {
     public Order createOrder(String userLogin, List<Product> products) {
         try(Connection connection = DriverManager.getConnection("jdbc:h2:mem:~/test", "sa", "")){
 
-            PreparedStatement userStatement = connection.prepareStatement("select * from `user` where login =?");
+            PreparedStatement userStatement = connection.prepareStatement("select * from users where login =?");
             userStatement.setString(1, userLogin);
             ResultSet userSet = userStatement.executeQuery();
             userSet.next();
             int userId = userSet.getInt(1);
 
-            PreparedStatement orderStatement = connection.prepareStatement("select * from `order`");
+            PreparedStatement orderStatement = connection.prepareStatement("select * from orders");
             ResultSet orderSet = orderStatement.executeQuery();
             orderSet.last();
             int orderId = orderSet.getInt(1) + 1;
@@ -112,7 +112,7 @@ public class ProductDao {
             for(Product product : products) {
                 String vendorCode = product.getVendorCode();
 
-                PreparedStatement productStatement = connection.prepareStatement("select * from `product` where vendorCode =?");
+                PreparedStatement productStatement = connection.prepareStatement("select * from products where vendorCode =?");
                 productStatement.setString(1, vendorCode);
                 ResultSet productSet = productStatement.executeQuery();
                 productSet.next();
@@ -120,7 +120,7 @@ public class ProductDao {
 
                 Statement statement = connection.createStatement();
                 String orderRow = " values (" + orderId + ", " + userId + ", " + productId +")";
-                statement.execute("insert into `order` (id, user_id, product_id)" + orderRow);
+                statement.execute("insert into orders (id, user_id, product_id)" + orderRow);
                 userIdList.add(userId);
                 productIdList.add(productId);
             }

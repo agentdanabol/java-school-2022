@@ -36,48 +36,13 @@ public class GraphicApp {
         rightAnswers = 0;
     }
 
-    public void runApp(List<Sentence> sentenceList) {
-
-        panel.add(new JLabel("Выберите сложность!"));
-
-        JPanel buttonPanel = new JPanel(new FlowLayout());
-
-        JButton easyButton = new JButton("Easy");
-        buttonPanel.add(easyButton);
-
-        JButton mediumButton = new JButton("Medium");
-        buttonPanel.add(mediumButton);
-
-        JButton hardButton = new JButton("Hard");
-        buttonPanel.add(hardButton);
-
-        panel.add(buttonPanel);
-        panel.revalidate();
-
-        easyButton.addActionListener(e -> {
-            panel.remove(buttonPanel);
-            state.set(true);
-            //handler(sentenceList, 1);
-        });
-        mediumButton.addActionListener(e -> {
-            panel.remove(buttonPanel);
-            state.set(true);
-            handler(sentenceList, 2);
-        });
-        hardButton.addActionListener(e -> {
-            panel.remove(buttonPanel);
-            state.set(true);
-            handler(sentenceList, 3);
-        });
-
-    }
-
     public void handler(List<Sentence> sentenceList, int difficultyLevel) {
 
         SentenceManipulator sentenceManipulator = new SentenceManipulator(sentenceList);
         List<String> processedList = sentenceManipulator.setDifficulty(difficultyLevel);
 
         for(String sentence : processedList) {
+
             wordsManipulator = new WordsManipulator(sentence);
             printString(" ");
             printString(wordsManipulator.getMixedSentence());
@@ -85,11 +50,7 @@ public class GraphicApp {
 
             System.out.println("check");
             while (state.compareAndSet(false, state.get())) {
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+                Thread.onSpinWait();
             }
 
         }
@@ -144,6 +105,42 @@ public class GraphicApp {
 
     public int getRightAnswers() {
         return rightAnswers;
+    }
+
+    public void runApp(List<Sentence> sentenceList) {
+
+        panel.add(new JLabel("Выберите сложность!"));
+
+        JPanel buttonPanel = new JPanel(new FlowLayout());
+
+        JButton easyButton = new JButton("Easy");
+        buttonPanel.add(easyButton);
+
+        JButton mediumButton = new JButton("Medium");
+        buttonPanel.add(mediumButton);
+
+        JButton hardButton = new JButton("Hard");
+        buttonPanel.add(hardButton);
+
+        panel.add(buttonPanel);
+        panel.revalidate();
+
+        easyButton.addActionListener(e -> {
+            panel.remove(buttonPanel);
+            state.set(true);
+            handler(sentenceList, 1);
+        });
+        mediumButton.addActionListener(e -> {
+            panel.remove(buttonPanel);
+            state.set(true);
+            handler(sentenceList, 2);
+        });
+        hardButton.addActionListener(e -> {
+            panel.remove(buttonPanel);
+            state.set(true);
+            handler(sentenceList, 3);
+        });
+
     }
 
 }

@@ -9,13 +9,13 @@ import java.util.List;
 
 public class Ip {
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
 
         DataContainerImplementation dataContainer = new DataContainerImplementation(true);
         List<Sentence> sentenceList = dataContainer.getData();
 
         GraphicApp app = new GraphicApp();
-        app.runApp(sentenceList);
+        app.handler(sentenceList, 1);
 
     }
 

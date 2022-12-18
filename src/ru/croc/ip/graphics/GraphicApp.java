@@ -1,11 +1,8 @@
 package ru.croc.ip.graphics;
 
-import ru.croc.ip.service.Sentence;
-import ru.croc.ip.service.SentenceManipulator;
 import ru.croc.ip.service.WordsManipulator;
 
 import javax.swing.*;
-import java.awt.*;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -22,12 +19,12 @@ public class GraphicApp {
 
         JFrame frame = new JFrame("LanguageSchool");
         frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
-        frame.setSize(800,600);
+        frame.setSize(500,500);
         frame.setLayout(null);
         frame.setVisible(true);
 
         panel = new JPanel(new VerticalLayout());
-        panel.setBounds(40,40,600,600);
+        panel.setBounds(40,40,400,400);
 
         printString("Тест: составьте предложение из заданных слов");
         printString(" ");
@@ -36,12 +33,9 @@ public class GraphicApp {
         rightAnswers = 0;
     }
 
-    public void handler(List<Sentence> sentenceList, int difficultyLevel) {
+    public void handler(List<String> sentenceList) {
 
-        SentenceManipulator sentenceManipulator = new SentenceManipulator(sentenceList);
-        List<String> processedList = sentenceManipulator.setDifficulty(difficultyLevel);
-
-        for(String sentence : processedList) {
+        for(String sentence : sentenceList) {
 
             wordsManipulator = new WordsManipulator(sentence);
             printString(" ");
@@ -55,8 +49,6 @@ public class GraphicApp {
 
         }
 
-        printString(" ");
-        printString("Вы решили это упражнение на " + sentenceManipulator.getSuccess(getRightAnswers()) + " процентов");
     }
 
     public void printString(String mixedSentence) {
@@ -107,40 +99,25 @@ public class GraphicApp {
         return rightAnswers;
     }
 
-    public void runApp(List<Sentence> sentenceList) {
-
-        panel.add(new JLabel("Выберите сложность!"));
-
-        JPanel buttonPanel = new JPanel(new FlowLayout());
-
-        JButton easyButton = new JButton("Easy");
-        buttonPanel.add(easyButton);
-
-        JButton mediumButton = new JButton("Medium");
-        buttonPanel.add(mediumButton);
-
-        JButton hardButton = new JButton("Hard");
-        buttonPanel.add(hardButton);
-
-        panel.add(buttonPanel);
-        panel.revalidate();
-
-        easyButton.addActionListener(e -> {
-            panel.remove(buttonPanel);
-            state.set(true);
-            handler(sentenceList, 1);
-        });
-        mediumButton.addActionListener(e -> {
-            panel.remove(buttonPanel);
-            state.set(true);
-            handler(sentenceList, 2);
-        });
-        hardButton.addActionListener(e -> {
-            panel.remove(buttonPanel);
-            state.set(true);
-            handler(sentenceList, 3);
-        });
-
+    public int parseDifficulty(String level) {
+        switch (level) {
+            case "easy" -> {
+                return 1;
+            }
+            case "medium" -> {
+                return 2;
+            }
+            case "hard" -> {
+                return 3;
+            }
+            default -> {
+                try {
+                    throw new Exception("Wrong difficulty level!");
+                } catch (Exception e) {
+                    throw  new RuntimeException(e);
+                }
+            }
+        }
     }
 
 }
